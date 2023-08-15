@@ -5,6 +5,7 @@ edition = "2021"
 authors = ["onekg <1kg.coop@gmail.com>"]
 license = "MIT"
 homepage = "https://onekg.dev"
+repository = "https://github.com/1kawdalg/scr"
 description = """
 Simple site parser and file loader
 """
