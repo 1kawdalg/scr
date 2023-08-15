@@ -5,6 +5,9 @@ edition = "2021"
 authors = ["onekg <1kg.coop@gmail.com>"]
 license = "MIT"
 homepage = "https://onekg.dev"
+description = """
+Simple site parser and file loader
+"""
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
