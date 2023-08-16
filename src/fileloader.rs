@@ -1,7 +1,8 @@
 //! Load anything <i>(now only files)</i>
 
 use std::{
-    fs::File, io::{ Cursor, copy }
+    fs::File,
+    io::{copy, Cursor},
 };
 
 use crate::FileType;
@@ -9,7 +10,7 @@ use reqwest::blocking;
 
 /// Load file
 pub struct FileLoader {
-    pub file: File
+    pub file: File,
 }
 
 impl FileLoader {
@@ -30,20 +31,23 @@ impl FileLoader {
     pub fn new(url: &str, file_name: &str, file_type: FileType) -> FileLoader {
         let file_end = match file_type {
             FileType::Json => "json",
-            FileType::Png  => "png",
+            FileType::Png => "png",
             FileType::Jpeg => "jpeg",
-            FileType::Jpg  => "jpg",
+            FileType::Jpg => "jpg",
             FileType::Xlsx => "xlsx",
-            FileType::Txt  => "txt"
+            FileType::Txt => "txt",
         };
 
-        let response = blocking::get(format!("https://{url}"))
-            .expect("Can not get site by url");
+        let response = blocking::get(format!("https://{url}")).expect("Can not get site by url");
 
-        let mut file = File::create(format!("../{file_name}.{file_end}"))
-            .expect("Can not create file");
+        let mut file =
+            File::create(format!("../{file_name}.{file_end}")).expect("Can not create file");
 
-        let mut content = Cursor::new(response.bytes().expect("Can not get response body as bytes"));
+        let mut content = Cursor::new(
+            response
+                .bytes()
+                .expect("Can not get response body as bytes"),
+        );
         copy(&mut content, &mut file).expect("Can not copy content");
 
         FileLoader { file }
