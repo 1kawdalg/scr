@@ -1,2 +1,2 @@
-# scr-rs
+# scr
 Simple scraper and file loader
