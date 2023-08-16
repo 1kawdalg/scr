@@ -65,6 +65,20 @@ impl Scraper {
     pub fn get_text_once(&self, sel: &str) -> String {
         self.get_el(sel).inner_html()
     }
+
+    /// get text from all elements
+    ///
+    /// Example:
+    /// ```
+    /// use scr::Scraper;
+    /// let scraper = Scraper::new("scrapeme.live/shop/");
+    ///
+    /// let text = scraper.get_all_text(
+    ///     "main#main>ul>li.product>a>h2",
+    /// );
+    ///
+    /// assert_eq!(text.get(0).unwrap(), "Bulbasaur")
+    /// ```
     pub fn get_all_text(&self, sel: &str) -> Vec<String> {
         self.get_els(sel)
             .iter()
@@ -90,6 +104,22 @@ impl Scraper {
     pub fn get_attr_once(&self, sel: &str, attr: &str) -> &str {
         self.get_el(sel).value().attr(attr).expect("Can not do")
     }
+
+    /// get attribute from all elements
+    ///
+    /// Example:
+    /// ```
+    /// use scr::Scraper;
+    ///
+    /// let scraper = Scraper::new("scrapeme.live/shop/");
+    ///
+    /// let text = scraper.get_all_attr(
+    ///     "main#main>ul>li.product>a>span",
+    ///     "class",
+    /// );
+    ///
+    /// assert_eq!(*text.get(0).unwrap(), "price")
+    /// ```
     pub fn get_all_attr(&self, sel: &str, attr: &str) -> Vec<&str> {
         self.get_els(sel)
             .iter()

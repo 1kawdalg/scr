@@ -10,7 +10,7 @@ pub struct FileLoader<'l> {
 }
 
 impl<'l> FileLoader<'l> {
-    ///
+    /// Simple file loader
     ///
     /// Example:
     /// ```
