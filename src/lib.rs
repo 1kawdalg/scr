@@ -1,13 +1,8 @@
 //! This crate is just parse documents and load files
-pub mod loading;
+pub mod fileloader;
 pub mod scraping;
 
-extern crate reqwest;
-extern crate scraper;
-
-use reqwest::blocking as rb;
-
-pub use loading::FileLoader;
+pub use fileloader::FileLoader;
 pub use scraping::Scraper;
 
 /// "**How many <i>values</i>** to consider?"

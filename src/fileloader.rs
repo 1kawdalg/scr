@@ -1,15 +1,15 @@
 //! Load anything <i>(now only files)</i>
-pub mod ways;
 
 use std::{
     fs::File, io::{ Cursor, copy }
 };
 
-use crate::{ rb, FileType };
+use crate::FileType;
+use reqwest::blocking;
 
 /// Load file
 pub struct FileLoader {
-    file: File
+    pub file: File
 }
 
 impl FileLoader {
@@ -37,20 +37,15 @@ impl FileLoader {
             FileType::Txt  => "txt"
         };
 
-        let resp = rb::get(format!("https://{url}"))
-            .expect("Site is don't load");
+        let response = blocking::get(format!("https://{url}"))
+            .expect("Can not get site by url");
 
         let mut file = File::create(format!("../{file_name}.{file_end}"))
-            .expect("File don't make");
+            .expect("Can not create file");
 
-        let mut content = Cursor::new(resp.bytes().unwrap());
-        copy(&mut content, &mut file).expect("File don't loaded");
+        let mut content = Cursor::new(response.bytes().expect("Can not get response body as bytes"));
+        copy(&mut content, &mut file).expect("Can not copy content");
 
         FileLoader { file }
-    }
-
-    /// file getter
-    pub fn get_file(self) -> File {
-        self.file
     }
 }
