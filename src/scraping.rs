@@ -1,7 +1,7 @@
 //! All parsing <i>structures</i> and <i>modules</i>
-pub mod ways;
 
-use crate::{ rb, ItemNum };
+use crate::ItemNum;
+use reqwest::blocking;
 use scraper::{ Selector, Html, ElementRef };
 
 /// Simple parser
@@ -20,17 +20,12 @@ pub struct Scraper {
 }
 
 impl Scraper {
-    /// generate selector
-    fn get_sel(&self, sel: &str) -> Selector {
-        Selector::parse(sel).unwrap()
-    }
-
     /// create a new instance of scraper <i>using a site code **(without https://)**</i>
     pub fn new(url: &str) -> Scraper {
-        let response = rb::get(format!("https://{}", url))
-            .expect("Site is don't load")
+        let response = blocking::get(format!("https://{}", url))
+            .expect("Can not get site by url")
             .text()
-            .expect("Document is don't parse");
+            .expect("Can not get the response text");
 
         Scraper { document: Html::parse_document(&response) }
     }
@@ -47,7 +42,7 @@ impl Scraper {
         let items;
         let selector;
 
-        selector = self.get_sel(sel);
+        selector = Self::get_sel(sel);
         items = self.document.select(&selector);
 
         for item in items {
@@ -61,7 +56,7 @@ impl Scraper {
     pub fn get_el(&self, sel: &str) -> ElementRef {
         let vector = self.get_els(sel);
 
-        *vector.get(0).unwrap()
+        *vector.get(0).expect("Can not get element")
     }
 
     /// get text from (an) element(s)
@@ -78,10 +73,10 @@ impl Scraper {
     ///
     /// assert_eq!(text[0], "Bulbasaur")
     /// ```
-    pub fn get_text(&self, sel: &str, _type: ItemNum) -> Vec<String> {
+    pub fn get_text(&self, sel: &str, item_num: ItemNum) -> Vec<String> {
         let mut new_vector = Vec::<String>::new();
 
-        let vector = match _type {
+        let vector = match item_num {
             ItemNum::Once =>
                 vec![self.get_el(sel)],
             ItemNum::All =>
@@ -130,5 +125,8 @@ impl Scraper {
         }
 
         new_vector
+    }
+    fn get_sel(sel: &str) -> Selector {
+        Selector::parse(sel).unwrap()
     }
 }
