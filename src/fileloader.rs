@@ -1,55 +1,45 @@
 //! Load anything <i>(now only files)</i>
 
-use std::{
-    fs::File,
-    io::{copy, Cursor},
-};
+use std::{fs, path::Path};
 
-use crate::FileType;
 use reqwest::blocking;
 
 /// Load file
-pub struct FileLoader {
-    pub file: File,
+pub struct FileLoader<'l> {
+    pub file: &'l Path,
 }
 
-impl FileLoader {
-    /// load file and save his <i>(please, write site url **without https://**)</i>
+impl<'l> FileLoader<'l> {
+    ///
     ///
     /// Example:
     /// ```
-    /// use scr::{ FileLoader, FileType };
+    /// use scr::FileLoader;
     ///
     /// let file_loader = FileLoader::new(
     ///     "scrapeme.live/wp-content/uploads/2018/08/011.png",
-    ///     "example",
-    ///     FileType::Png
+    ///     "./some_png.png"
     /// );
     ///
-    /// let file = file_loader.get_file();
+    /// assert_eq!(file_loader.file, b"image bytes");
     /// ```
-    pub fn new(url: &str, file_name: &str, file_type: FileType) -> FileLoader {
-        let file_end = match file_type {
-            FileType::Json => "json",
-            FileType::Png => "png",
-            FileType::Jpeg => "jpeg",
-            FileType::Jpg => "jpg",
-            FileType::Xlsx => "xlsx",
-            FileType::Txt => "txt",
-        };
+    pub fn new(url: &str, path: &'l str) -> Result<FileLoader<'l>, reqwest::Error> {
+        let file = Path::new(path);
+        if !file.exists() {
+            fs::File::create(file).unwrap_or_else(|_| {
+                fs::File::create(
+                    std::env::current_dir()
+                        .expect("Can not get current dir")
+                        .join(file.file_name().expect("Can not get file name"))
+                        .with_extension(file.extension().expect("Can not get extension")),
+                )
+                .expect("Can not create file")
+            });
+        }
 
-        let response = blocking::get(format!("https://{url}")).expect("Can not get site by url");
+        let response = blocking::get(format!("https://{url}"))?;
+        let _ = fs::write(file, response.text()?);
 
-        let mut file =
-            File::create(format!("../{file_name}.{file_end}")).expect("Can not create file");
-
-        let mut content = Cursor::new(
-            response
-                .bytes()
-                .expect("Can not get response body as bytes"),
-        );
-        copy(&mut content, &mut file).expect("Can not copy content");
-
-        FileLoader { file }
+        Ok(FileLoader { file })
     }
 }

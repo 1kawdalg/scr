@@ -41,7 +41,6 @@ impl Scraper {
     pub fn get_els(&self, sel: &str) -> Vec<ElementRef> {
         self.document
             .select(&Selector::parse(sel).expect("Can not parse"))
-            .map(|element| element)
             .collect()
     }
 
