@@ -1,7 +1,11 @@
-//! Load files
-pub mod load;
+//! Load anything <i>(now only files)</i>
+pub mod ways;
 
-use super::*;
+use std::{
+    fs::File, io::{ Cursor, copy }
+};
+
+use crate::{ rb, FileType };
 
 /// Load file
 pub struct FileLoader {
@@ -13,7 +17,7 @@ impl FileLoader {
     ///
     /// Example:
     /// ```
-    /// use scr::prelude::{FileLoader, FileType};
+    /// use scr::{ FileLoader, FileType };
     ///
     /// let file_loader = FileLoader::new(
     ///     "scrapeme.live/wp-content/uploads/2018/08/011.png",

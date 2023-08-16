@@ -1,13 +1,14 @@
 //! All parsing <i>structures</i> and <i>modules</i>
-pub mod create;
+pub mod ways;
 
-use crate::prelude::{ rb, ItemNum, scraper::{Selector, Html, ElementRef} };
+use crate::{ rb, ItemNum };
+use scraper::{ Selector, Html, ElementRef };
 
 /// Simple parser
 ///
 /// Example of using the received ElementRef:
 /// ```
-/// use scr::prelude::parsing::Scraper;
+/// use scr::Scraper;
 ///
 /// let scraper = Scraper::new("scrapeme.live/shop/");
 /// let element = scraper.get_el("main#main>ul>li.product>a>h2");
@@ -67,7 +68,7 @@ impl Scraper {
     ///
     /// Example:
     /// ```
-    /// use scr::prelude::{ parsing::Scraper, ItemNum };
+    /// use scr::{ Scraper, ItemNum };
     /// let scraper = Scraper::new("scrapeme.live/shop/");
     ///
     /// let text = scraper.get_text(
@@ -100,7 +101,7 @@ impl Scraper {
     ///
     /// Example:
     /// ```
-    /// use scr::prelude::{ parsing::Scraper, ItemNum };
+    /// use scr::{ Scraper, ItemNum };
     ///
     /// let scraper = Scraper::new("scrapeme.live/shop/");
     ///
