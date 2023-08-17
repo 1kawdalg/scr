@@ -8,10 +8,7 @@
     <img alt="Crates.io" src="https://img.shields.io/crates/d/scr?style=plastic">
   </a>
   <a href="https://github.com/1kawdalg/scr">
-    <img alt="GitHub: 1kawdalg/scr" src="
-https://img.shields.io/github/languages/code-size/
-1kawdalg/scr?style=plastic&logo=github&label=1kawdalg%2Fscr
-    ">
+    <img alt="GitHub: 1kawdalg/scr" src="https://img.shields.io/github/languages/code-size/1kawdalg/scr?style=plastic&logo=github&label=1kawdalg%2Fscr">
   </a>
 </p>
 
