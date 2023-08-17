@@ -18,13 +18,19 @@ impl<'l> FileLoader<'l> {
     ///
     /// let file_loader = FileLoader::new(
     ///     "scrapeme.live/wp-content/uploads/2018/08/011.png",
-    ///     "./some_png.png"
-    /// );
+    ///     "./data/some_png.png"
+    /// ).unwrap();
     ///
-    /// assert_eq!(file_loader.file, b"image bytes");
+    /// assert_eq!(
+    ///     file_loader.file
+    ///         .file_name().unwrap()
+    ///         .to_str().unwrap(),
+    ///     "some_png.png"
+    /// );
     /// ```
     pub fn new(url: &str, path: &'l str) -> Result<FileLoader<'l>, reqwest::Error> {
         let file = Path::new(path);
+
         if !file.exists() {
             fs::File::create(file).unwrap_or_else(|_| {
                 fs::File::create(
@@ -38,7 +44,7 @@ impl<'l> FileLoader<'l> {
         }
 
         let response = blocking::get(format!("https://{url}"))?;
-        let _ = fs::write(file, response.text()?);
+        let _ = fs::write(file, response.bytes()?);
 
         Ok(FileLoader { file })
     }

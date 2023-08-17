@@ -11,7 +11,7 @@ use scraper::{ElementRef, Html, Selector};
 /// let scraper = Scraper::new("scrapeme.live/shop/");
 /// let element = scraper.get_el("main#main>ul>li.product>a>h2");
 ///
-/// assert_eq!(element.inner_html(), "Bulbasaur")
+/// assert_eq!(element.inner_html(), "Bulbasaur");
 /// ```
 pub struct Scraper {
     document: Html,

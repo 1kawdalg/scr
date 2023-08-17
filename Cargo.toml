@@ -1,14 +1,14 @@
 [package]
 name = "scr"
-version = "0.2.3"
+version = "0.2.4"
 edition = "2021"
 authors = ["onekg <1kg.coop@gmail.com>"]
 license = "MIT"
 homepage = "https://onekg.dev"
 repository = "https://github.com/1kawdalg/scr"
 documentation = "https://docs.rs/scr/latest/scr/"
-description = "Simple site parser and file loader"
+description = "Most simple site parser and file loader"
 
 [dependencies]
-reqwest = { version = "0.11", features = ["blocking"] }
+reqwest = {version = "0.11", features = ["blocking"]}
 scraper = "0.17.1"
