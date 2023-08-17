@@ -18,7 +18,7 @@
 This is simplified fork of crates ```reqwest = {version = "0.11", features = ["blocking"]}```
 and ```scraper = "0.17.1"``` which working together.
 Also are system ```pub struct std::path::Path```, ```pub struct std::fs::File```
-and ```pub fn std::fs::File```.
+and ```pub fn std::fs::write```.
 
 ## "How use last stable version of scr in app?"
 ```toml
