@@ -24,7 +24,7 @@ and ```pub fn std::fs::write```.
 ```toml
 # Cargo.toml
 [dependencies]
-scr = "1.0.0"
+scr = "1.0.1"
 ```
 
 ## Examples
@@ -33,8 +33,8 @@ scr = "1.0.0"
 use scr::Scraper;
 
 fn main() {
-    let scraper = Scraper::new("scrapeme.live/shop/");
-    let element = scraper.get_el("main#main>ul>li.product>a>h2");
+    let scraper = Scraper::new("scrapeme.live/shop/").unwrap();
+    let element = scraper.get_el("main#main>ul>li.product>a>h2").unwrap();
 
     assert_eq!(element.inner_html(), "Bulbasaur")
 }
@@ -44,10 +44,10 @@ fn main() {
 use scr::Scraper;
 
 fn main() {
-    let scraper = Scraper::new("scrapeme.live/shop/");
-    let fragment = scraper.get_text_once("main#main>ul>li.product>a");
-    let new_scraper = Scraper::from_fragment(fragment.as_str());
-    let element = new_scraper.get_el("a");
+    let scraper = Scraper::new("scrapeme.live/shop/").unwrap();
+    let fragment = scraper.get_text_once("main#main>ul>li.product>a").unwrap();
+    let new_scraper = Scraper::from_fragment(fragment.as_str()).unwrap();
+    let element = new_scraper.get_el("a").unwrap();
 
     assert_eq!(element.inner_html(), "Bulbasaur")
 }
@@ -72,6 +72,6 @@ fn main() {
 ```
 
 ## The [crate](https://docs.rs/scr/latest/scr/) was developed by:
-- ### version 1.0.0
-[onekg (i.e. I)](https://github.com/1kawdalg);\
+- ### version 1.0
+[onekg](https://github.com/1kawdalg);\
 [reloginn](https://github.com/reloginn)

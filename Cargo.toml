@@ -1,10 +1,9 @@
 [package]
 name = "scr"
-version = "1.0.0"
+version = "1.0.1"
 edition = "2021"
 authors = ["onekg <1kg.coop@gmail.com>"]
 license = "MIT"
-homepage = "https://onekg.dev"
 repository = "https://github.com/1kawdalg/scr"
 documentation = "https://docs.rs/scr/latest/scr/"
 description = "Most simple site parser and file loader"
