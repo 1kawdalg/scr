@@ -24,7 +24,7 @@ and ```pub fn std::fs::write```.
 ```toml
 # Cargo.toml
 [dependencies]
-scr = "1.0.1"
+scr = "1.0.2"
 ```
 
 ## Examples
@@ -74,4 +74,5 @@ fn main() {
 ## The [crate](https://docs.rs/scr/latest/scr/) was developed by:
 - ### version 1.0
 [onekg](https://github.com/1kawdalg);\
-[reloginn](https://github.com/reloginn)
+[reloginn](https://github.com/reloginn);\
+[Black Soul](https://github.com/BlackSoulHub)
