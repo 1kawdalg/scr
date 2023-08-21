@@ -41,6 +41,7 @@
 //! ```
 pub mod fileloader;
 pub mod scraping;
+pub mod error;
 
 pub use fileloader::FileLoader;
 pub use scraping::Scraper;
